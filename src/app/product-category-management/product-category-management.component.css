@@ -1,0 +1,134 @@
+.styled-table {
+    border-collapse: collapse;
+    margin: 10% 0;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    width: 50%;
+    height: 20%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    align-content: center;
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+
+#delete
+{
+    background-color:rgb(190, 44, 44);
+    border-radius: 20%;
+    color: white;
+}
+
+#update
+{
+    background-color:#f8dd46;
+    color: rgb(0, 0, 0);
+    border-radius: 20%;
+
+}
+
+/* Style the navigation menu */
+.navbar {
+    width: 100%;
+    background-color: #555;
+    overflow: auto;
+  }
+  
+  /* Navigation links */
+  .navbar a {
+    float: left;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+    width: 25%; /* Four equal-width links. If you have two links, use 50%, and 33.33% for three links, etc.. */
+    text-align: center; /* If you want the text to be centered */
+  }
+  
+  /* Add a background color on mouse-over */
+  .navbar a:hover {
+    background-color: #000;
+  }
+  
+  /* Style the current/active link */
+  .navbar a.active {
+    background-color: #04AA6D;
+  }
+  
+  /* Add responsiveness - on screens less than 500px, make the navigation links appear on top of each other, instead of next to each other */
+  @media screen and (max-width: 500px) {
+    .navbar a {
+      float: none;
+      display: block;
+      width: 100%;
+      text-align: left; /* If you want the text to be left-aligned on small screens */
+    }
+  }
+  
+
+  /* Style the navigation menu */
+.navbar {
+  width: 100%;
+  background-color: #555;
+  overflow: auto;
+}
+
+/* Navigation links */
+.navbar a {
+  float: left;
+  padding: 12px;
+  color: white;
+  text-decoration: none;
+  font-size: 17px;
+  width: 25%; /* Four equal-width links. If you have two links, use 50%, and 33.33% for three links, etc.. */
+  text-align: center; /* If you want the text to be centered */
+}
+
+/* Add a background color on mouse-over */
+.navbar a:hover {
+  background-color: #000;
+}
+
+/* Style the current/active link */
+.navbar a.active {
+  background-color: #04AA6D;
+}
+
+/* Add responsiveness - on screens less than 500px, make the navigation links appear on top of each other, instead of next to each other */
+@media screen and (max-width: 500px) {
+  .navbar a {
+    float: none;
+    display: block;
+    width: 100%;
+    text-align: left; /* If you want the text to be left-aligned on small screens */
+  }
+}
+

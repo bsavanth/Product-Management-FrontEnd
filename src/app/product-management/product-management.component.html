@@ -1,0 +1,491 @@
+
+
+<br>
+<br>
+
+<div class = "container">
+
+
+
+  <nav class="navbar navbar-light bg-light">
+    <form class="form-inline">
+      <button  (click) = "ToggleView()" class="btn btn-outline-success btn-lg" type="button">Show All Products</button>
+      <button  (click) = "ToggleAddView()" class="btn btn-outline-success btn-lg" type="button">Add Product</button>
+      <button  (click) = "ToggleDelete()" class="btn btn-outline-success btn-lg" type="button">Delete Product</button>
+      <button  (click) = "ToggleUpdate()" class="btn btn-outline-success btn-lg" type="button">Update Product Details</button>
+      <button  (click) = "ToggleSearch()" class="btn btn-outline-success btn-lg" type="button">Search Products in a Category</button> 
+      <button  (click) = "ToggleCount()" class="btn btn-outline-success btn-lg" type="button"> All Products by Category</button>      
+    </form>
+  </nav>
+
+
+
+<!----------------------------------------------------------------View Products----------------------------------------------------------------------------->
+
+
+<div *ngIf ="viewVisible">
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <td>Product ID</td>
+                <td>Product Name</td>
+                <td>Category ID</td>
+                <td>Expiry Date</td>
+                <td>Inventory Quantity</td>
+                <td>Price Per Unit</td>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr *ngFor = "let product of products">
+                <td>{{product.id}}</td>
+                <td>{{product.name}}</td>
+                <td>{{product.cid}}</td>
+                <td>{{product.expiryDate | date :'dd/MM/YYYY'}}</td>
+                <td>{{product.quantity}}</td>
+                <td>{{product.price}}</td>
+            </tr>
+        </tbody>
+    </table> 
+</div>
+
+
+<!----------------------------------------------------------------Add Products----------------------------------------------------------------------------->
+
+
+
+<div  *ngIf = "addVisible">
+
+
+        <br>
+        <br>
+
+        <form #RegForm = "ngForm" (ngSubmit) = "AddProduct(RegForm)">
+        <table>  
+        
+          <tr>
+
+            <td>
+
+                <div class="input-group input-group-sm mb-3 col-xs-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-sm">Product Name</span>
+                    </div>
+                    <input type = "text"  required name = "name" ngModel #second = "ngModel"  id = "Name" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+
+
+            </td>
+
+              <td *ngIf="second.errors?.required">
+                Name is required
+            </td>
+    
+          </tr>
+          
+
+          
+      
+          <tr>
+
+              <td>
+
+                <div class="input-group input-group-sm mb-3 col-xs-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-sm">Category</span>
+                    </div>
+
+                    <select select class="form-select " aria-label="Default select example" ngModel name = "cid" id = "CID" >
+
+                        <option name = "cid"  *ngFor = "let category of categories " [value] = "category.cid" >{{category.catName}}</option>
+    
+                    </select>
+                </div>
+                
+              </td>
+
+          </tr>
+      
+
+          <tr>
+
+            <td>
+
+                <div class="input-group input-group-sm mb-3 col-xs-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-sm">Expiry Date</span>
+                    </div>
+                    <input type = "date"  required name = "expiryDate" ngModel #fourth = "ngModel"  id = "ExpiryDate" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+    
+              <td *ngIf="fourth.errors?.required">
+                Expiry Date is required
+            </td>
+    
+          </tr>
+      
+
+
+
+
+
+
+          
+          <tr>
+
+            <td>
+                
+                <div class="input-group input-group-sm mb-3 col-xs-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-sm">Quantity</span>
+                    </div>
+                    <input type = "number"  required name = "quantity" ngModel #sixth = "ngModel" id = "Quantity" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </td>
+
+        
+            <td *ngIf="sixth.errors?.required">
+              Quanity is required
+          </td>
+        </tr>
+
+
+
+
+          <tr>
+
+            <td>
+                <div class="input-group input-group-sm mb-3 col-xs-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-sm">Price</span>
+                    </div>
+                    <input type = "number"  required name = "price" ngModel #fifth = "ngModel"  id = "Price" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </td>
+             
+              <td *ngIf="fifth.errors?.required">
+                Price is required
+            </td>
+    
+          </tr>
+      
+      
+          </table>
+      
+      
+          <button type="submit" class="btn btn-success btn-lg btn-block">Add Product </button>
+      
+    </form>
+  <!-- <div *ngIf = "!validDate">
+        {{dateMessage}} </div> -->
+    </div> 
+
+    
+<!----------------------------------------------------------------Delete Product----------------------------------------------------------------------------->
+
+
+<div *ngIf = "deleteVisible">
+
+<table class="styled-table">
+    <thead>
+        <tr>
+            <td>Product ID</td>
+            <td>Product Name</td>
+            <td>Category ID</td>
+            <td>Expiry Date</td>
+            <td>Inventory Quantity</td>
+            <td>Price Per Unit</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    
+    <tbody>
+
+        <tr *ngFor = "let product of products">
+            <td>{{product.id}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.cid}}</td>
+            <td>{{product.expiryDate| date :'dd/MM/YYYY'}}</td>
+            <td>{{product.quantity}}</td>
+            <td>{{product.price}}</td>
+        
+        <td>
+           <button class="btn btn-danger" id = "delete"> <span (click) = "DeleteProduct(product.id)">Delete</span></button>
+
+        </td>
+
+        </tr>
+        </tbody>
+  
+</table>
+
+</div>
+
+
+<!----------------------------------------------------------------Update Product----------------------------------------------------------------------------->
+
+
+<div *ngIf = "updateView">
+
+<table class="styled-table">
+    <thead>
+        <tr>
+            <td>Product ID</td>
+            <td>Product Name</td>
+            <td>Category ID</td>
+            <td>Expiry Date</td>
+            <td>Inventory Quantity</td>
+            <td>Price Per Unit</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    
+    <tbody>
+
+
+        <tr *ngFor = "let product of products" >
+            <td>{{product.id}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.cid}}</td>
+            <td>{{product.expiryDate| date :'dd/MM/YYYY'}}</td>
+            <td>{{product.quantity}}</td>
+            <td>{{product.price}}</td>
+        
+        <td>
+            <button class="btn btn-warning" id = "update"><span (click) = "UpdateProduct(product)">Update</span></button>
+
+        </td>
+
+        </tr>
+
+    </tbody>
+</table>
+
+</div>
+
+<table class="styled-table">
+    <div *ngIf = "editVisible">
+
+        
+
+        <form #RegForm = "ngForm" (ngSubmit) = "EditProduct(RegForm)">
+
+            <input type ="hidden" name = "id" value = {{prod.id}}>
+
+            <table>  
+            
+
+        
+                <tr>
+
+                    <td>
+        
+                        <div class="input-group input-group-sm mb-3 col-xs-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="inputGroup-sizing-sm">Product Name</span>
+                            </div>
+                            <input type = "text"  required name = "name" ngModel #second = "ngModel"  id = "Name" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+        
+        
+                    </td>
+        
+                      <td *ngIf="second.errors?.required">
+                        Name is required
+                    </td>
+            
+                  </tr>
+                  
+        
+                  
+              
+                  <tr>
+
+                    <td>
+      
+                      <div class="input-group input-group-sm mb-3 col-xs-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Category</span>
+                          </div>
+      
+                          <select select class="form-select " aria-label="Default select example" ngModel name = "cid" id = "CID" >
+      
+                              <option name = "cid"  *ngFor = "let category of categories " [value] = "category.cid" >{{category.catName}}</option>
+          
+                          </select>
+                      </div>
+                      
+                    </td>
+      
+                </tr>
+              
+        
+                  <tr>
+        
+                    <td>
+        
+                        <div class="input-group input-group-sm mb-3 col-xs-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="inputGroup-sizing-sm">Expiry Date</span>
+                            </div>
+                            <input type = "date"  required name = "expiryDate" ngModel #fourth = "ngModel"  id = "ExpiryDate" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+            
+                      <td *ngIf="fourth.errors?.required">
+                        Expiry Date is required
+                    </td>
+            
+                  </tr>
+              
+        
+        
+        
+        
+        
+        
+                  
+                  <tr>
+        
+                    <td>
+                        
+                        <div class="input-group input-group-sm mb-3 col-xs-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="inputGroup-sizing-sm">Quantity</span>
+                            </div>
+                            <input type = "number"  required name = "quantity" ngModel #sixth = "ngModel" id = "Quantity" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                    </td>
+        
+                
+                    <td *ngIf="sixth.errors?.required">
+                      Quanity is required
+                  </td>
+                </tr>
+        
+        
+        
+        
+                  <tr>
+        
+                    <td>
+                        <div class="input-group input-group-sm mb-3 col-xs-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="inputGroup-sizing-sm">Price</span>
+                            </div>
+                            <input type = "number"  required name = "price" ngModel #fifth = "ngModel"  id = "Price" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                    </td>
+                     
+                      <td *ngIf="fifth.errors?.required">
+                        Price is required
+                    </td>
+            
+                  </tr>
+              
+              
+                  </table>
+              
+              
+                  <button type="submit" class="btn btn-success btn-lg btn-block">Add Product </button>
+        </form>
+    
+    
+        
+    <!-- <div *ngIf = "!validDate">
+        {{dateMessage}}
+        </div> -->
+    </div>
+</table>
+
+<!----------------------------------------------------------------Search By Category----------------------------------------------------------------------------->
+
+
+<div *ngIf = "searchView">
+
+<form #RegForm = "ngForm" (ngSubmit) = "SearchByCategory(RegForm)">
+      
+
+    <div class="input-group input-group-sm mb-3 col-xs-3">  
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-sm">Category Name</span>
+        </div>
+        <input type="text" required name = "catName" ngModel #sixth = "ngModel" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+      </div>
+
+    <button type="submit" class="btn btn-success btn-lg btn-block">Search Products in this Category </button>
+    
+</form>
+</div>
+
+
+<div *ngIf = "searchVisible">
+<table class="styled-table">
+    <thead>
+        <tr>
+            <td>Product ID</td>
+            <td>Product Name</td>
+            <td>Category ID</td>
+            <td>Expiry Date</td>
+            <td>Inventory Quantity</td>
+            <td>Price Per Unit</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    
+    <tbody>
+
+    <tr *ngFor = "let product of products">
+        <td>{{product.id}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.cid}}</td>
+        <td>{{product.expiryDate| date :'dd/MM/YYYY'}}</td>
+        <td>{{product.quantity}}</td>
+        <td>{{product.price}}</td>
+
+    </tr>
+    </tbody>
+
+</table>
+
+</div>
+
+
+<!----------------------------------------------------------------Count By Category----------------------------------------------------------------------------->
+
+ <div *ngIf = "countView">
+
+
+ <form #RegForm = "ngForm" (ngSubmit) = "CountByCategory(RegForm)">
+      
+    <button type="submit" class="btn btn-success btn-lg btn-block">Click here to view statistics on the Product Database</button>
+  
+</form>
+
+</div>
+
+
+
+
+<div *ngIf = "countVisible">
+    <table class="styled-table"> 
+        <thead>
+            <tr>
+                <td>Category</td> 
+                <td>Products in the Category</td>
+            </tr>
+        </thead>
+        <tbody>
+                <tr *ngFor = "let product of products" >
+                <td>{{product.catName}}</td>
+                <td>{{product.catCount}}</td>
+                </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+</div>
+
+

@@ -1,0 +1,192 @@
+
+
+<br>
+<br>
+
+<div class = "container">
+
+
+
+  
+  <nav class="navbar navbar-light bg-light">
+    <form class="form-inline">
+      <button  (click) = "ToggleView()" class="btn btn-outline-success btn-lg" type="button">View All Categories</button>
+      <button  (click) = "ToggleAdd()" class="btn btn-outline-success btn-lg" type="button">Add Category</button>
+      <button  (click) = "ToggleDel()" class="btn btn-outline-success btn-lg" type="button">Delete Category</button>
+      <button  (click) = "ToggleUpdate()" class="btn btn-outline-success btn-lg" type="button">Update Category</button>     
+    </form>
+  </nav>
+  
+
+
+
+<div class = "container1">
+
+
+
+<!--------------------------View All Categories-------------------------------------------->
+
+
+<div *ngIf = "viewVisible">
+
+<table  class="styled-table">
+
+    <thead>
+        <tr>
+            <th>Category ID</th>
+            <th>Category Name</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+    <tr *ngFor = "let product of products">
+
+
+        <td>
+            {{product.cid}}
+        </td>
+
+        <td>
+            {{product.catName}}
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+
+</div>
+
+<!------------------------------------------Add Category Form-------------------------------------------->
+
+<div *ngIf = "addVisible">
+
+<form #RegForm = "ngForm" (ngSubmit) = "AddProductCategory(RegForm)">
+      
+          
+    <div class="input-group input-group-sm mb-3 col-xs-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-sm">Category Name</span>
+        </div>
+        <input type="text" required name = "catName" ngModel #sixth = "ngModel" id = "Quantity"  class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+      </div>
+
+    <button type="submit" class="btn btn-success btn-lg btn-block">Add Category </button>
+  
+</form>
+
+</div>
+
+
+<!-------------------------------------Delete Category --------------------------------------------------->
+
+
+<div *ngIf = "delVisible">
+
+
+<table class="styled-table">
+
+    <thead>
+        <tr>
+            <th>Category ID</th>
+            <th>Category Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor = "let product of products">
+
+        <td>
+            {{product.cid}}
+        </td>
+
+        <td>
+            {{product.catName}}
+        </td>
+        <td>
+           <button id = "delete"> <span (click) = "DeleteProductCategory(product.cid)">Delete</span> </button>
+        </td>
+
+    </tr>
+</tbody>
+</table>
+
+
+</div>
+
+<!---------------------------------------Edit Category----------------------------------------------------------->
+
+<div *ngIf = "updateVisible">
+
+<table class="styled-table">
+
+    <thead>
+        <tr>
+            <th>Category ID</th>
+            <th>Category Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+    <tr *ngFor = "let product of products">
+
+        <td>
+            {{product.cid}}
+        </td>
+
+        <td>
+            {{product.catName}}
+        </td>
+
+        <td>
+            <button id = "update"><span (click) = "UpdateProductCategory(product)">Update</span></button>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</div>
+
+<table class="styled-table">
+    <div *ngIf = "editVisible">
+
+        <form #RegForm = "ngForm" (ngSubmit) = "EditProductCategory(RegForm)">
+
+            <input type ="hidden" name = "cid" value = {{prodCat.cid}}>
+            
+            <table>
+                <tr>
+                   
+                    <td>
+
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="inputGroup-sizing-sm">New Category Name</span>
+                            </div>
+                            <input type="text" required name = "catName" ngModel #first = "ngModel" id = "CategoryName" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                          </div>
+                    
+                    </td>
+
+                    <td *ngIf="first.errors?.required">
+                        Category is required
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>
+                    <button type="submit" class="btn btn-success btn-lg btn-block"> Update </button>
+                    </td>
+                </tr>
+            </table>
+          
+  </form>
+</div>
+
+</table>
+</div>
+</div>
